@@ -1,4 +1,11 @@
 ---
+dependencies:
+  - name: geerlingguy.pip
+    src: geerlingguy.pip
+
+  - name: geerlingguy.docker
+    src: geerlingguy.docker
+
 galaxy_info:
   author: César M. Cristóbal
   description: Installs nextcloud container
