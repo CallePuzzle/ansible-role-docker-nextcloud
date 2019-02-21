@@ -3,5 +3,7 @@
   become: true
   become_method: sudo
   hosts: all
+  vars:
+    nextcloud_url: http://192.168.56.20:10080
   roles:
-    - role: nextcloud
+    - { role: nextcloud, tags: ['nextcloud'] }
