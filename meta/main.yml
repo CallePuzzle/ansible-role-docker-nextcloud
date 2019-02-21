@@ -8,7 +8,7 @@ dependencies:
 
 galaxy_info:
   author: César M. Cristóbal
-  description: Installs nextcloud container
+  description: Installs nextcloud containerized
   company: "Callepuzzle"
   license: "license (BSD, MIT)"
   min_ansible_version: 2.7

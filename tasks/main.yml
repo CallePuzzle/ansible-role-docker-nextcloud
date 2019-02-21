@@ -10,7 +10,7 @@
       DB_PASS: "{{ nextcloud_db_pass }}"
       DB_NAME: "{{ nextcloud_db_name }}"
     volumes:
-      - /srv/docker/nextcloud/postgresql:/var/lib/postgresql
+      - "{{ nextcloud_data_dir_postgresql }}:/var/lib/postgresql"
     log_driver: "{{ nextcloud_log_driver | default(omit) }}"
     log_options: "{{ nextcloud_log_options | default(omit) }}"
 
@@ -36,7 +36,7 @@
       NEXTCLOUD_MAX_FILE_UPLOADS: "{{ nextcloud_max_file_uploads }}"
       NEXTCLOUD_BACKUPS_EXPIRY: "{{ nextcloud_backups_expiry }}"
     volumes:
-      - /srv/docker/nextcloud/nextcloud:/var/lib/nextcloud
+      - "{{ nextcloud_data_dir_nextcloud }}:/var/lib/nextcloud"
     links:
       - postgresql
     log_driver: "{{ nextcloud_log_driver | default(omit) }}"
