@@ -52,8 +52,7 @@
     env:
       NEXTCLOUD_PHP_FPM_HOST: "{{ nextcloud_php_fpm_host }}"
       NEXTCLOUD_PHP_FPM_PORT: "{{ nextcloud_php_fpm_port }}"
-    ports:
-      - "{{ nextcloud_external_port }}:80"
+    ports: "{{ nextcloud_ports |  default(false) }}"
     links:
       - nextcloud
     log_driver: "{{ nextcloud_log_driver | default(omit) }}"
