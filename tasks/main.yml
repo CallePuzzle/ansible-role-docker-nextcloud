@@ -1,59 +1,43 @@
 ---
-- name: Run postgresql
+- name: Run mysql
   docker_container:
-    name: postgresql
+    name: mysql
     restart_policy: always
-    image: sameersbn/postgresql:9.5-4
-    restart: "{{ postgresql_restart |  default(false) }}"
+    image: mariadb:10
+    restart: "{{ mysql_restart |  default(false) }}"
     env:
-      DB_USER: "{{ nextcloud_db_user }}"
-      DB_PASS: "{{ nextcloud_db_pass }}"
-      DB_NAME: "{{ nextcloud_db_name }}"
+      MYSQL_ROOT_PASSWORD: "mysql"
+      MYSQL_USER: "{{ nextcloud_db_user }}"
+      MYSQL_PASSWORD: "{{ nextcloud_db_pass }}"
+      MYSQL_DATABASE: "{{ nextcloud_db_name }}"
     volumes:
-      - "{{ nextcloud_data_dir_postgresql }}:/var/lib/postgresql"
+      - "{{ nextcloud_data_dir_mysql }}:/var/lib/mysql"
     log_driver: "{{ nextcloud_log_driver | default(omit) }}"
     log_options: "{{ nextcloud_log_options | default(omit) }}"
+  tags:
+    - mysql
 
 - name: Run nextcloud
   docker_container:
     name: nextcloud
     restart_policy: always
-    image: sameersbn/nextcloud:9.0.55
+    image: nextcloud:stable-apache
     restart: "{{ nextcloud_restart |  default(false) }}"
-    command: app:nextcloud
     env:
-      DEBUG: "{{ nextcloud_debug }}"
-      TZ: "{{ nextcloud_tz }}"
-      DB_TYPE: "{{ nextcloud_db_type }}"
-      DB_HOST: "{{ nextcloud_db_host }}"
-      DB_USER: "{{ nextcloud_db_user }}"
-      DB_PASS: "{{ nextcloud_db_pass }}"
-      DB_NAME: "{{ nextcloud_db_name }}"
-      NEXTCLOUD_URL: "{{ nextcloud_url }}"
+      MYSQL_HOST: "{{ nextcloud_db_host }}"
+      MYSQL_USER: "{{ nextcloud_db_user }}"
+      MYSQL_PASSWORD: "{{ nextcloud_db_pass }}"
+      MYSQL_DATABASE: "{{ nextcloud_db_name }}"
       NEXTCLOUD_ADMIN_USER: "{{ nextcloud_admin_user }}"
       NEXTCLOUD_ADMIN_PASSWORD: "{{ nextcloud_admin_password }}"
-      NEXTCLOUD_UPLOAD_MAX_FILESIZE: "{{ nextcloud_upload_max_filesize }}"
-      NEXTCLOUD_MAX_FILE_UPLOADS: "{{ nextcloud_max_file_uploads }}"
-      NEXTCLOUD_BACKUPS_EXPIRY: "{{ nextcloud_backups_expiry }}"
-    volumes:
-      - "{{ nextcloud_data_dir_nextcloud }}:/var/lib/nextcloud"
-    links:
-      - postgresql
-    log_driver: "{{ nextcloud_log_driver | default(omit) }}"
-    log_options: "{{ nextcloud_log_options | default(omit) }}"
-
-- name: Run nginx
-  docker_container:
-    name: nginx
-    restart_policy: always
-    image: sameersbn/nextcloud:9.0.55
-    restart: "{{ nginx_restart |  default(false) }}"
-    command: app:nginx
-    env:
-      NEXTCLOUD_PHP_FPM_HOST: "{{ nextcloud_php_fpm_host }}"
-      NEXTCLOUD_PHP_FPM_PORT: "{{ nextcloud_php_fpm_port }}"
+      NEXTCLOUD_TABLE_PREFIX: "{{ nextcloud_table_prefix }}"
+      NEXTCLOUD_TRUSTED_DOMAINS: "{{ nextcloud_trusted_domains }}"
     ports: "{{ nextcloud_ports |  default(false) }}"
+    volumes:
+      - "{{ nextcloud_data_dir_nextcloud }}:/var/www/html/data"
     links:
-      - nextcloud
+      - mysql
     log_driver: "{{ nextcloud_log_driver | default(omit) }}"
     log_options: "{{ nextcloud_log_options | default(omit) }}"
+  tags:
+    - nextcloud

@@ -1,21 +1,16 @@
 ---
-nextcloud_debug: false
-nextcloud_tz: Europe/Madrid
-nextcloud_db_type: pgsql
-nextcloud_db_host: postgresql
+nextcloud_db_host: mysql
 nextcloud_db_user: nextcloud
 nextcloud_db_pass: password
 nextcloud_db_name: nextcloud_db
-nextcloud_url: http://cloud.example.com:10080
+
+nextcloud_table_prefix: ""
+
+nextcloud_trusted_domains: http://cloud.example.com:10080
 nextcloud_admin_user: admin
 nextcloud_admin_password: admin
-nextcloud_upload_max_filesize: 4G
-nextcloud_max_file_uploads: 20
-nextcloud_backups_expiry: 0
-nextcloud_php_fpm_host: nextcloud
-nextcloud_php_fpm_port: 9000
 nextcloud_external_port: 10080
 nextcloud_ports:
   - "{{ nextcloud_external_port }}:80"
-nextcloud_data_dir_postgresql: /srv/docker/nextcloud/postgresql
+nextcloud_data_dir_mysql: /srv/docker/nextcloud/mysql
 nextcloud_data_dir_nextcloud: /srv/docker/nextcloud/nextcloud

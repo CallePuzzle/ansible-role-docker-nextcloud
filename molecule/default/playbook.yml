@@ -4,6 +4,6 @@
   become_method: sudo
   hosts: all
   vars:
-    nextcloud_url: http://192.168.56.20:10080
+    nextcloud_trusted_domains: http://192.168.56.20:10080
   roles:
-    - { role: nextcloud, tags: ['nextcloud'] }
+    - { role: ansible-role-nextcloud, tags: ['ansible-role-nextcloud'] }
