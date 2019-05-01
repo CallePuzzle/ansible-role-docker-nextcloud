@@ -21,7 +21,7 @@
   docker_container:
     name: nextcloud
     restart_policy: always
-    image: nextcloud:stable-apache
+    image: "nextcloud:{{ nextcloud_version }}-apache"
     restart: "{{ nextcloud_restart |  default(false) }}"
     env:
       MYSQL_HOST: "{{ nextcloud_db_host }}"

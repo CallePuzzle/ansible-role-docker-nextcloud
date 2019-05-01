@@ -6,6 +6,8 @@ nextcloud_db_name: nextcloud_db
 
 nextcloud_table_prefix: ""
 
+nextcloud_version: 15
+
 nextcloud_trusted_domains: http://cloud.example.com:10080
 nextcloud_admin_user: admin
 nextcloud_admin_password: admin
