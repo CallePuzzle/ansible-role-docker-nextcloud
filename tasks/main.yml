@@ -15,7 +15,7 @@
     log_driver: "{{ nextcloud_log_driver | default(omit) }}"
     log_options: "{{ nextcloud_log_options | default(omit) }}"
   tags:
-    - mysql
+    - run-mysql
 
 - name: Run nextcloud
   docker_container:
@@ -34,10 +34,10 @@
       NEXTCLOUD_TRUSTED_DOMAINS: "{{ nextcloud_trusted_domains }}"
     ports: "{{ nextcloud_ports |  default(false) }}"
     volumes:
-      - "{{ nextcloud_data_dir_nextcloud }}:/var/www/html/data"
+      - "{{ nextcloud_data_dir_nextcloud }}:/var/www/html"
     links:
       - mysql
     log_driver: "{{ nextcloud_log_driver | default(omit) }}"
     log_options: "{{ nextcloud_log_options | default(omit) }}"
   tags:
-    - nextcloud
+    - run-nextcloud
