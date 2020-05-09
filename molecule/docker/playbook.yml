@@ -1,0 +1,10 @@
+---
+- name: Converge
+  become: true
+  become_method: sudo
+  hosts: all
+  vars:
+    molecule_scenario_no_deps: true
+    nextcloud_trusted_domains: http://192.168.56.20:10080
+  roles:
+    - { role: ansible-role-docker-nextcloud, tags: ['nextcloud'] }

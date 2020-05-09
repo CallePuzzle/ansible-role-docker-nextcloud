@@ -6,4 +6,4 @@
   vars:
     nextcloud_trusted_domains: http://192.168.56.20:10080
   roles:
-    - { role: ansible-role-nextcloud, tags: ['ansible-role-nextcloud'] }
+    - { role: ansible-role-docker-nextcloud, tags: ['nextcloud'] }
