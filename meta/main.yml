@@ -2,7 +2,6 @@
 dependencies:
   - name: geerlingguy.pip
     src: geerlingguy.pip
-    when: molecule_scenario_no_deps is not defined
 
   - name: geerlingguy.docker
     src: geerlingguy.docker
