@@ -7,3 +7,9 @@
       raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
       become: true
       changed_when: false
+
+    - name: Upgrade distro
+      apt:
+        update_cache: yes
+        upgrade: yes
+      become: true
