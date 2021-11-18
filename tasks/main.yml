@@ -3,10 +3,10 @@
   docker_container:
     name: mysql
     restart_policy: always
-    image: mariadb:10
+    image: "mariadb:{{ mysql_image_version }}"
     restart: "{{ mysql_restart |  default(false) }}"
     env:
-      MYSQL_ROOT_PASSWORD: "mysql"
+      MYSQL_ROOT_PASSWORD: "{{ mysql_root_password }}"
       MYSQL_USER: "{{ nextcloud_db_user }}"
       MYSQL_PASSWORD: "{{ nextcloud_db_pass }}"
       MYSQL_DATABASE: "{{ nextcloud_db_name }}"
